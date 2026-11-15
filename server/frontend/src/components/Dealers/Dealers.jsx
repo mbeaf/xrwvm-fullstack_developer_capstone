@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Dealers.css";
 import "../assets/style.css";
-import Header from '../Header/Header';
 import review_icon from "../assets/reviewicon.png"
 
 const Dealers = () => {
@@ -50,9 +49,9 @@ const Dealers = () => {
 let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
 return(
   <div>
-      <Header/>
-
      <table className='table'>
+      <table className='table'>
+      <thead>
       <tr>
       <th>ID</th>
       <th>Dealer Name</th>
@@ -74,8 +73,10 @@ return(
          ):<></>
       }
       </tr>
+      </thead>
+      <tbody>
      {dealersList.map(dealer => (
-        <tr>
+        <tr key={dealer.id}>
           <td>{dealer['id']}</td>
           <td><a href={'/dealer/'+dealer['id']}>{dealer['full_name']}</a></td>
           <td>{dealer['city']}</td>
@@ -88,6 +89,7 @@ return(
           }
         </tr>
       ))}
+      </tbody>
      </table>;
   </div>
 )

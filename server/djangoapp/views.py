@@ -10,6 +10,7 @@
 
 from django.http import JsonResponse
 from .models import CarMake
+from . import restapis
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 import logging
@@ -48,6 +49,76 @@ def get_car_makes(request):
         for make in makes
     ]
     return JsonResponse({'CarMakes': data})
+
+
+def get_dealers(request, state=None):
+    """Return dealer records from the external dealership service."""
+    if request.method != 'GET':
+        return JsonResponse({'status': 405, 'error': 'Use GET to retrieve dealers.'}, status=405)
+
+    try:
+        endpoint = 'fetchDealers' if not state or state.lower() == 'all' else f'fetchDealers/{state}'
+        dealers = restapis.get_request(endpoint)
+        return JsonResponse({'status': 200, 'dealers': dealers})
+    except restapis.requests.RequestException:
+        logger.exception('Could not retrieve dealers from the dealership service.')
+        return JsonResponse({'status': 502, 'error': 'Dealership service is unavailable.'}, status=502)
+
+
+def get_dealerships(request):
+    """Return all dealerships through the backend proxy."""
+    return get_dealers(request)
+
+
+def get_dealer_details(request, dealer_id):
+    """Return details for one dealership from the backend."""
+    if request.method != 'GET':
+        return JsonResponse({'status': 405, 'error': 'Use GET to retrieve dealer details.'}, status=405)
+    try:
+        dealer = restapis.get_request(f'fetchDealer/{dealer_id}')
+        return JsonResponse({'status': 200, 'dealer': [dealer]})
+    except restapis.requests.HTTPError as error:
+        if error.response is not None and error.response.status_code == 404:
+            return JsonResponse({'status': 404, 'error': 'Dealership not found.'}, status=404)
+        logger.exception('Could not retrieve dealer %s.', dealer_id)
+        return JsonResponse({'status': 502, 'error': 'Dealership service is unavailable.'}, status=502)
+    except restapis.requests.RequestException:
+        logger.exception('Could not retrieve dealer %s.', dealer_id)
+        return JsonResponse({'status': 502, 'error': 'Dealership service is unavailable.'}, status=502)
+
+
+def get_dealer_reviews(request, dealer_id):
+    """Return reviews for one dealership from the backend."""
+    if request.method != 'GET':
+        return JsonResponse({'status': 405, 'error': 'Use GET to retrieve dealer reviews.'}, status=405)
+    try:
+        reviews = restapis.get_request(f'fetchReviews/dealer/{dealer_id}')
+        return JsonResponse({'status': 200, 'reviews': reviews})
+    except restapis.requests.RequestException:
+        logger.exception('Could not retrieve reviews for dealer %s.', dealer_id)
+        return JsonResponse({'status': 502, 'error': 'Review service is unavailable.'}, status=502)
+
+
+@csrf_exempt
+def add_review(request):
+    """Forward a review payload to the backend review service."""
+    if request.method != 'POST':
+        return JsonResponse({'status': 405, 'error': 'Use POST to submit a review.'}, status=405)
+    try:
+        data = json.loads(request.body)
+        required_fields = (
+            'name', 'dealership', 'review', 'purchase', 'purchase_date',
+            'car_make', 'car_model', 'car_year',
+        )
+        if not isinstance(data, dict) or any(field not in data for field in required_fields):
+            return JsonResponse({'status': 400, 'error': 'Review fields are missing.'}, status=400)
+        result = restapis.post_review(data)
+        return JsonResponse({'status': 200, 'review': result})
+    except (json.JSONDecodeError, TypeError):
+        return JsonResponse({'status': 400, 'error': 'Invalid JSON review payload.'}, status=400)
+    except restapis.requests.RequestException:
+        logger.exception('Could not submit review to the dealership service.')
+        return JsonResponse({'status': 502, 'error': 'Dealership service is unavailable.'}, status=502)
 
 
 # Create your views here.

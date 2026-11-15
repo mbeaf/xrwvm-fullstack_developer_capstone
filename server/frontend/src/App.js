@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import LoginPanel from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import Dealers from "./components/Dealers/Dealers";
 import "./components/assets/bootstrap.min.css";
 import "./components/assets/style.css";
 import "./App.css";
@@ -14,6 +15,12 @@ function Home() {
         <h1>Your journey starts here.</h1>
         <p>Explore trusted dealerships and discover a car that feels right for you.</p>
         <Link className="btn btn-primary" to="/about">Meet our team</Link>
+      </section>
+      <section className="home-dealers site-page" aria-labelledby="home-dealers-title">
+        <p className="eyebrow">Our partners</p>
+        <h2 id="home-dealers-title">Dealerships near you</h2>
+        <p>Browse our dealership network. Sign in when you’re ready to leave a review.</p>
+        <Dealers />
       </section>
     </main>
   );
