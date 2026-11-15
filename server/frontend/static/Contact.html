@@ -9,13 +9,10 @@
   <style>
     :root { --contact-ink: #17332e; --contact-muted: #63736e; --contact-green: #167d69; --contact-pale: #eff7f0; }
     body { margin: 0; min-height: 100vh; background: #f7f8f4; color: var(--contact-ink); font-family: Arial, sans-serif; }
-    .contact-nav { min-height: 78px; padding: 0 clamp(18px, 6vw, 90px); background: #fff; border-bottom: 1px solid #e3eae3; }
+    .contact-nav { min-height: 1in; padding: 0; background: darkturquoise; }
     .contact-nav .container-fluid { padding: 0; }
-    .contact-brand { color: var(--contact-ink); font-size: 21px; font-weight: 700; text-decoration: none; }
-    .contact-brand:hover { color: var(--contact-green); }
-    .contact-nav .navbar-nav { gap: 8px; }
-    .contact-nav .nav-link { padding: 10px 14px; border-radius: 8px; color: #53645d; font-weight: 600; }
-    .contact-nav .nav-link:hover, .contact-nav .nav-link.active { color: #116453; background: #eaf5ef; }
+    .contact-nav h2 { padding-right: 5%; }
+    .contact-nav .nav-link { font-size: larger; }
     .contact-shell { max-width: 1120px; margin: 0 auto; padding: 76px 24px; }
     .contact-heading { max-width: 670px; margin-bottom: 36px; }
     .contact-eyebrow { margin-bottom: 12px; color: var(--contact-green); font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
@@ -42,9 +39,9 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg contact-nav" aria-label="Main navigation">
+  <nav class="navbar navbar-expand-lg navbar-light contact-nav" aria-label="Main navigation">
     <div class="container-fluid">
-      <a class="navbar-brand contact-brand" href="/">Dealerships</a>
+      <h2>Dealerships</h2>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#contactNavigation" aria-controls="contactNavigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

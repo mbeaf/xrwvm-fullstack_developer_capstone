@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import LoginPanel from "./components/Login/Login";
+import Register from "./components/Register/Register";
 import "./components/assets/bootstrap.min.css";
 import "./components/assets/style.css";
 import "./App.css";
@@ -94,6 +95,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPanel />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Home />} />
