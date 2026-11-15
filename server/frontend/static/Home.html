@@ -7,7 +7,16 @@
 <script>
 
 const logout = async (e) => {
-//Include the code for logout here.
+  e.preventDefault();
+  try {
+    const response = await fetch('/djangoapp/logout', { method: 'POST' });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Logout failed.');
+    sessionStorage.removeItem('username');
+    window.location.reload();
+  } catch (error) {
+    alert(error.message || 'Unable to sign out. Please try again.');
+  }
 };
 
 let checkSession = ()=>{
