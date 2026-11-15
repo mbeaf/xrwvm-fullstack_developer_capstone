@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import "./Dealers.css";
 import "../assets/style.css";
-import Header from '../Header/Header';
 
 
 const PostReview = () => {
@@ -12,23 +11,25 @@ const PostReview = () => {
   const [year, setYear] = useState("");
   const [date, setDate] = useState("");
   const [carmodels, setCarmodels] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  let curr_url = window.location.href;
-  let root_url = curr_url.substring(0,curr_url.indexOf("postreview"));
   let params = useParams();
   let id =params.id;
-  let dealer_url = root_url+`djangoapp/dealer/${id}`;
-  let review_url = root_url+`djangoapp/add_review`;
-  let carmodels_url = root_url+`djangoapp/get_cars`;
+  let dealer_url = `/djangoapp/dealer/${id}`;
+  let review_url = `/djangoapp/add_review`;
+  let carmodels_url = `/djangoapp/get_car_makes`;
 
-  const postreview = async ()=>{
+  const postreview = async (event)=>{
+    event.preventDefault();
     let name = sessionStorage.getItem("firstname")+" "+sessionStorage.getItem("lastname");
     //If the first and second name are stores as null, use the username
     if(name.includes("null")) {
       name = sessionStorage.getItem("username");
     }
     if(!model || review === "" || date === "" || year === "" || model === "") {
-      alert("All details are mandatory")
+      setError("Please complete all fields before submitting your review.");
       return;
     }
 
@@ -47,7 +48,9 @@ const PostReview = () => {
       "car_year": year,
     });
 
-    console.log(jsoninput);
+    setSubmitting(true);
+    setError("");
+    try {
     const res = await fetch(review_url, {
       method: "POST",
       headers: {
@@ -56,9 +59,13 @@ const PostReview = () => {
       body: jsoninput,
   });
 
-  const json = await res.json();
-  if (json.status === 200) {
-      window.location.href = window.location.origin+"/dealer/"+id;
+    const json = await res.json();
+    if (!res.ok || json.status !== 200) throw new Error(json.error || "Your review could not be submitted.");
+    navigate(`/dealer/${id}/`);
+    } catch (err) {
+      setError(err.message || "Your review could not be submitted. Please try again.");
+    } finally {
+      setSubmitting(false);
   }
 
   }
@@ -81,7 +88,9 @@ const PostReview = () => {
     });
     const retobj = await res.json();
     
-    let carmodelsarr = Array.from(retobj.CarModels)
+    let carmodelsarr = (retobj.CarMakes || []).flatMap((make) =>
+      (make.models || []).map((car) => ({ CarMake: make.name, CarModel: car.name }))
+    );
     setCarmodels(carmodelsarr)
   }
   useEffect(() => {
@@ -92,31 +101,29 @@ const PostReview = () => {
 
   return (
     <div>
-      <Header/>
-      <div  style={{margin:"5%"}}>
-      <h1 style={{color:"darkblue"}}>{dealer.full_name}</h1>
-      <textarea id='review' cols='50' rows='7' onChange={(e) => setReview(e.target.value)}></textarea>
-      <div className='input_field'>
-      Purchase Date <input type="date" onChange={(e) => setDate(e.target.value)}/>
-      </div>
-      <div className='input_field'>
-      Car Make 
-      <select name="cars" id="cars" onChange={(e) => setModel(e.target.value)}>
-      <option value="" selected disabled hidden>Choose Car Make and Model</option>
-      {carmodels.map(carmodel => (
-          <option value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
-      ))}
-      </select>        
-      </div >
-
-      <div className='input_field'>
-      Car Year <input type="int" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
+      <main className="site-page review-form-page">
+      <section className="page-intro review-page-intro"><p className="eyebrow">Share your experience</p><h1>Write a dealer review</h1><p>Your feedback helps other drivers choose with confidence.</p>{dealer.full_name && <div className="reviewing-dealer"><span className="reviewing-dealer-label">Reviewing</span><strong>{dealer.full_name}</strong></div>}</section>
+      <form className="review-form-card" onSubmit={postreview}>
+      <div className="review-form-section-heading"><span className="review-step">01</span><div><h2>Your experience</h2><p>Tell us about your visit to the dealership.</p></div></div>
+      <label className="review-field" htmlFor="review">Your review <span className="field-required">Required</span><textarea id='review' rows='6' value={review} onChange={(e) => setReview(e.target.value)} placeholder="What went well? What could have been better?" required /></label>
+      <div className="review-form-section-heading review-details-heading"><span className="review-step">02</span><div><h2>Purchase details</h2><p>Add a few details about the vehicle you purchased.</p></div></div>
+      <div className="review-details-grid">
+        <label className='input_field' htmlFor="purchase-date">Purchase date <span className="field-required">Required</span><input id="purchase-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required /></label>
+        <label className='input_field' htmlFor="cars">Make and model <span className="field-required">Required</span>
+          <select name="cars" id="cars" value={model || ""} onChange={(e) => setModel(e.target.value)} required>
+          <option value="" disabled>Choose make and model</option>
+          {carmodels.map(carmodel => (
+              <option key={`${carmodel.CarMake}-${carmodel.CarModel}`} value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
+          ))}
+          </select>
+        </label>
+        <label className='input_field' htmlFor="car-year">Vehicle year <span className="field-required">Required</span><input id="car-year" type="number" value={year} onChange={(e) => setYear(e.target.value)} max={new Date().getFullYear()} min={1950} placeholder="e.g. 2022" required /></label>
       </div>
 
-      <div>
-      <button className='postreview' onClick={postreview}>Post Review</button>
-      </div>
-    </div>
+      {error && <p className="review-form-error" role="alert">{error}</p>}
+      <div className="review-form-actions"><Link className="review-cancel" to={`/dealer/${id}/`}>Cancel</Link><button className='postreview' type="submit" disabled={submitting}>{submitting ? "Submitting…" : "Submit review"}</button></div>
+      </form>
+      </main>
     </div>
   )
 }

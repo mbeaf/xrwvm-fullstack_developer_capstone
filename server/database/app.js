@@ -8,10 +8,13 @@ const port = 3030;
 app.use(cors())
 app.use(require('body-parser').urlencoded({ extended: false }));
 
-const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
-const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
+// Resolve seed files relative to this file so `node app.js` works from any cwd.
+const data_dir = require('path').join(__dirname, 'data');
+const reviews_data = JSON.parse(fs.readFileSync(require('path').join(data_dir, 'reviews.json'), 'utf8'));
+const dealerships_data = JSON.parse(fs.readFileSync(require('path').join(data_dir, 'dealerships.json'), 'utf8'));
 
-mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'});
+const mongo_url = process.env.MONGODB_URL || 'mongodb://127.0.0.1:27017/';
+mongoose.connect(mongo_url, {'dbName':'dealershipsDB'});
 
 
 const Reviews = require('./review');

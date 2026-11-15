@@ -1,9 +1,12 @@
-table{
-    margin:5px;
-    padding:10px;
-    border: grey solid 1px;
-    width:100%
-  }
+.dealers-table-wrap { overflow-x: auto; border: 1px solid #e4e9e2; border-radius: 16px; background: #fff; box-shadow: 0 12px 34px rgba(25, 50, 38, .045); }
+.dealers-table { min-width: 760px; margin: 0; border: 0; border-collapse: separate; border-spacing: 0; }
+.dealers-table th { position: sticky; top: 0; padding: 16px 18px; border: 0; border-bottom: 1px solid #d7e8e6; background: #e8fafa; color: #245b5a; font-size: 12px; font-weight: 700; letter-spacing: .6px; text-align: left; text-transform: uppercase; }
+.dealers-table td { padding: 17px 18px; border: 0; border-bottom: 1px solid #edf0eb; color: #40524b; font-size: 14px; text-align: left; vertical-align: middle; }
+.dealers-table tbody tr:last-child td { border-bottom: 0; }
+.dealers-table tbody tr:hover { background: #f0fbfa; }
+.dealers-table a { color: #116453; font-weight: 700; text-decoration: none; }
+.dealers-table a:hover { text-decoration: underline; }
+.dealers-table select { max-width: 150px; padding: 8px 10px; border: 1px solid #a5d4d2; border-radius: 8px; background: white; color: #40524b; font: inherit; text-transform: none; }
   
   td{
     padding:10px;
@@ -13,76 +16,99 @@ table{
     font-size: large;
   }
   
-  .review_panel{
+.review_panel{
     display: flex;
     flex-direction: column;
-    border: solid grey;
+    border: 1px solid #e4e9e2;
     position: relative;
-    height:7cm;
-    width:6cm;
-    overflow-y: scroll;
-    padding:.3cm;
-    padding-top: 0%;
-    border-radius:10px; 
-    box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.5);
-    margin-bottom: .5cm;
-    justify-content: space-between;
+    min-height:250px;
+    width:min(100%, 340px);
+    overflow-wrap: anywhere;
+    padding:20px;
+    border-radius:14px;
+    background: #fff;
+    box-shadow: 0px 12px 34px rgba(25, 50, 38, .06);
+    margin-bottom: 0;
+    justify-content: flex-start;
   }
 
-  .postreview{
-    margin:20px;
-    padding:10px;
-    font-size: larger;
-  }
-
-  th{
-    padding:5px;
-    align-self: center;
-    text-align: center;
-    font-size: large;
-    margin-bottom: 1cm;
-    vertical-align: middle;
-    color: black;
-  }
+.postreview{ margin:20px; padding:10px; font-size:larger; }
 
   .reviews_panel {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 1cm;
+    gap: 18px;
     overflow-wrap: normal;
-    margin-top: 1cm;
+    margin-top: 22px;
     align-items: flex-start;
   }
 
-  .reviewer {
-    margin: 10px; /* Optional margin for spacing */
+.reviewer {
+    margin: auto 0 0;
+    padding-top: 16px;
+    border-top: 1px solid #edf0eb;
     font-style: italic;
     color: gray;
     font-size: small;
 }
 
 .review {
-  margin-top: 1.5cm;
+  margin: 24px 0;
+  color: #40524b;
+  line-height: 1.7;
 }
 
 .emotion_icon {
-  align-self: center;
-  position:fixed;
-    width:40px;
-    height:40px;
-    background-color:#0C9;
+  align-self: flex-start;
+    width:36px;
+    height:36px;
+    object-fit: contain;
     color:#FFF;
     border-radius:50px;
     text-align:center;
-    box-shadow: 2px 2px 3px #999;  
+    box-shadow: 0 3px 10px rgba(0, 110, 110, .15);  
 }
 
 .review_icon {
-  width:40px;
+  width:34px !important;
+  height:34px;
+  object-fit: contain;
 }
 
 .review_icon:hover {
   transform: scale(1.1);
   border: solid lightgray;
 }
+
+.review-form-page { max-width: 900px; }
+.review-page-intro { margin-bottom: 32px; }
+.review-page-intro h1 { margin-bottom: 12px; }
+.reviewing-dealer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 20px; padding: 12px 16px; border: 1px solid #b9e4e2; border-radius: 10px; background: rgba(0, 206, 209, .09); }
+.reviewing-dealer-label { color: #61716d; font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
+.reviewing-dealer strong { color: #075f60; font-size: 14px; }
+.review-form-card { display: grid; gap: 23px; padding: clamp(22px, 5vw, 42px); border: 1px solid #d4e7e5; border-radius: 18px; background: #fff; box-shadow: 0 16px 42px rgba(0, 76, 76, .09); }
+.review-form-section-heading { display: flex; align-items: flex-start; gap: 14px; }
+.review-step { display: grid; flex: 0 0 34px; width: 34px; height: 34px; place-items: center; border-radius: 10px; background: rgba(0, 206, 209, .17); color: #075f60; font-size: 12px; font-weight: 800; }
+.review-form-section-heading h2 { margin: 1px 0 5px; color: #17332e; font-size: 18px; }
+.review-form-section-heading p { margin: 0; color: #71807b; font-size: 13px; line-height: 1.5; }
+.review-details-heading { padding-top: 24px; border-top: 1px solid #edf0eb; }
+.review-field { display: grid; grid-template-columns: 1fr auto; gap: 9px; color: #40524b; font-size: 14px; font-weight: 700; }
+.review-field textarea { grid-column: 1 / -1; resize: vertical; min-height: 150px; }
+.field-required { justify-self: end; color: #7c8a84; font-size: 11px; font-weight: 500; }
+.review-field textarea, .input_field input, .input_field select { width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid #d6e4e1; border-radius: 9px; background: #fff; color: #142c2a; font: 400 15px 'DM Sans', sans-serif; transition: border-color .15s ease, box-shadow .15s ease; }
+.review-field textarea:focus, .input_field input:focus, .input_field select:focus { outline: none; border-color: #00aeb0; box-shadow: 0 0 0 3px rgba(0, 206, 209, .16); }
+.input_field { display: grid; grid-template-columns: 1fr auto; gap: 9px; color: #40524b; font-size: 14px; font-weight: 700; }
+.input_field input, .input_field select { grid-column: 1 / -1; }
+.review-details-grid { display: grid; grid-template-columns: 1fr 1.2fr .8fr; gap: 16px; }
+.review-form-card .postreview { width: fit-content; min-height: 46px; margin: 0; padding: 12px 20px; border: 0; border-radius: 9px; background: darkturquoise; color: #073f40; font: 700 15px 'DM Sans', sans-serif; cursor: pointer; transition: background .15s ease, transform .15s ease, box-shadow .15s ease; }
+.review-form-card .postreview:hover { background: #00c5c5; color: #073f40; transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0, 139, 139, .2); }
+.review-form-card .postreview:disabled { opacity: .65; cursor: wait; }
+.review-form-error { margin: 0; padding: 12px 14px; border: 1px solid #edc1bd; border-radius: 9px; background: #fff5f4; color: #8d342d; }
+.review-form-actions { display: flex; align-items: center; gap: 18px; }
+.review-cancel { color: #61716d; font-size: 14px; font-weight: 600; text-decoration: none; }
+.review-cancel:hover { color: #116453; text-decoration: underline; }
+.review-form-card .review-cancel { margin-right: auto; }
+.dealers-loading, .dealers-empty { padding: 26px; color: #61716d; text-align: center; }
+.dealer-review-cell { text-align: center !important; }
+@media (max-width: 768px) { .review_panel { width: 100%; min-height: 210px; } .reviews_panel { display: grid; grid-template-columns: 1fr; } .review-details-grid { grid-template-columns: 1fr; } }

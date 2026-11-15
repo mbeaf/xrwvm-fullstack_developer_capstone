@@ -22,26 +22,48 @@ h1, h2, p { margin-top: 0; }
 h1, h2 { font-family: 'Manrope', sans-serif; }
 
 .site-navbar {
-  min-height: 82px;
-  background: rgba(255, 255, 255, .97);
-  border-bottom: 1px solid var(--line);
-  padding: 0 clamp(20px, 7vw, 104px);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  min-height: 1in;
+  background: darkturquoise;
+  padding: 0 clamp(18px, 5vw, 72px);
+  box-shadow: 0 3px 14px rgba(0, 70, 70, .14);
 }
-.site-navbar .container-fluid { padding: 0; }
-.brand-link { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
-.brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px; background: var(--green); color: white; font-size: 18px; font-weight: 700; }
-.brand-name { font: 800 18px 'Manrope', sans-serif; letter-spacing: -.7px; }
-.site-navbar .navbar-nav { gap: 10px; }
-.site-navbar .nav-link { color: #576862; font-size: 14px; font-weight: 600; padding: 10px 13px !important; border-radius: 8px; }
-.site-navbar .nav-link:hover, .site-navbar .nav-link.active { color: var(--green-dark); background: var(--mint); }
-.site-navbar .navbar-toggler { border-color: var(--line); padding: 7px 9px; }
-.site-navbar .navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(22, 125, 105, .15); }
-.account-area { margin-left: 24px; }
-.account-area .username { color: var(--ink); font: 600 14px 'DM Sans', sans-serif; align-self: center; }
-.account-area .nav_item { color: var(--green-dark); font-size: 14px; font-weight: 600; text-decoration: none; align-self: center; }
-.account-area .input_panel { padding: 0; align-items: center; gap: 16px; }
+.site-navbar .container-fluid { max-width: 1440px; min-height: 1in; padding: 0; }
+.brand-link { display: inline-flex; align-items: center; color: #212529; text-decoration: none; }
+.brand-name { padding-right: 5%; font: 700 24px 'DM Sans', sans-serif; letter-spacing: 0; }
+.site-navbar .navbar-nav { gap: 0; }
+.site-navbar .nav-link { margin: 0 3px; color: rgba(0, 0, 0, .68); font-size: 15px; font-weight: 600; padding: 10px 13px !important; border-radius: 9px; transition: background .18s ease, transform .18s ease; }
+.site-navbar .nav-link:hover, .site-navbar .nav-link.active { color: #073f40; background: rgba(255, 255, 255, .34); }
+.site-navbar .nav-link:hover { transform: translateY(-1px); }
+.site-navbar .navbar-toggler { border-color: rgba(0, 0, 0, .2); }
+.account-area { margin-left: 12px; }
+.account-area .username { color: #212529; font: 20px sans-serif; align-self: center; }
+.account-area .nav_item { margin-left: 15px; color: #000; font-size: 20px; text-decoration: none; align-self: center; }
+.account-area .input_panel { padding: 10px; align-items: center; gap: 10px; }
 
-.site-page { max-width: 1170px; min-height: calc(100vh - 82px); margin: auto; padding: 104px 32px; }
+.site-page { max-width: 1170px; min-height: calc(100vh - 1in); margin: auto; padding: clamp(34px, 6vw, 76px) 32px; }
+.static-home-card { display: flex; flex-direction: column; width: min(760px, 78%); min-width: 320px; margin: 8px auto; overflow: hidden; border: 1px solid #d4e7e5; border-radius: 20px; background: white; box-shadow: 0 20px 55px rgba(0, 76, 76, .13); }
+.static-home-card > img { display: block; width: 100%; max-height: 470px; object-fit: cover; }
+.static-home-banner { display: flex; flex-direction: column; flex: 1; align-items: center; justify-content: center; padding: 30px 24px; text-align: center; }
+.static-home-banner h1 { margin-bottom: 6px; font: 700 clamp(22px, 3vw, 30px) 'Manrope', sans-serif; }
+.static-home-banner .btn { margin: 12px; padding: 11px 20px; border: 1px solid #009c9c; border-radius: 9px; background: darkturquoise; color: #073f40; font-weight: 700; box-shadow: 0 5px 14px rgba(0, 139, 139, .2); }
+.static-home-banner .btn:hover { background: #00c5c5; color: #073f40; transform: translateY(-1px); }
+.home-dealers-panel { margin: 56px auto 20px; padding: clamp(20px, 4vw, 34px); border: 1px solid #d4e7e5; border-radius: 18px; background: #fff; box-shadow: 0 18px 48px rgba(0, 76, 76, .09); }
+.home-dealers-heading { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+.home-dealers-heading .eyebrow { margin-bottom: 8px; }
+.home-dealers-heading h2 { margin-bottom: 8px; font-size: clamp(24px, 3vw, 32px); }
+.home-dealers-heading p:not(.eyebrow) { margin: 0; color: var(--muted); }
+.home-all-dealers { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border: 1px solid #9bcfcd; border-radius: 9px; color: #075f60; font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.home-all-dealers:hover { background: rgba(0, 206, 209, .12); color: #073f40; }
+.home-dealers-panel .dealers-table-wrap { box-shadow: none; }
+.dealers-page { max-width: 1320px; padding-top: 52px; }
+.static-dealers-card { overflow: hidden; border: 1px solid #d4e7e5; border-radius: 18px; background: white; box-shadow: 0 18px 48px rgba(0, 76, 76, .10); }
+.static-dealers-banner { padding: clamp(24px, 4vw, 38px); background: linear-gradient(135deg, rgba(0, 206, 209, .17), rgba(0, 206, 209, .04)); text-align: left; }
+.static-dealers-banner h1 { margin-bottom: 8px; font-size: clamp(26px, 3vw, 34px); }
+.static-dealers-banner p { margin: 0; color: #63736e; }
+.static-dealers-card .dealers-table-wrap { border: 0; border-radius: 0; box-shadow: none; }
 .home-hero { max-width: 800px; margin: 54px auto; padding: 92px clamp(28px, 7vw, 82px); border: 1px solid #e2ebe1; border-radius: 28px; background: radial-gradient(ellipse at 92% 8%, #cdebd8 0, transparent 37%), linear-gradient(130deg, #eef7ee, #f9faf5 64%); }
 .eyebrow { margin-bottom: 18px; color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; }
 .home-hero h1, .page-intro h1 { max-width: 740px; margin-bottom: 20px; font-size: clamp(42px, 6vw, 68px); font-weight: 700; line-height: 1.08; letter-spacing: -3px; }
@@ -70,13 +92,34 @@ h1, h2 { font-family: 'Manrope', sans-serif; }
 .contact-card a { color: var(--green-dark); font-size: 15px; font-weight: 600; text-decoration: none; }
 .contact-card a:hover { text-decoration: underline; }
 
+.dealer-detail-page { max-width: 1240px; }
+.dealer-heading { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 30px; border: 1px solid #d4e7e5; border-radius: 16px; background: linear-gradient(135deg, rgba(0, 206, 209, .15), #fff 75%); }
+.dealer-heading h1 { margin-bottom: 8px; color: var(--ink); font-size: clamp(28px, 4vw, 42px); }
+.dealer-heading p { margin: 0; color: var(--muted); }
+.dealer-review-link { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 10px 16px; border: 1px solid #009c9c; border-radius: 9px; background: darkturquoise; color: #073f40; font-weight: 700; text-decoration: none; transition: background .18s ease, box-shadow .18s ease, transform .18s ease; }
+.dealer-review-link:hover { background: #00c5c5; color: #073f40; }
+.dealer-review-link:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0, 139, 139, .2); }
+.dealer-review-link img { display: block; flex: 0 0 22px; width: 22px !important; height: 22px; object-fit: contain; align-self: auto; }
+.reviews-section { margin-top: 34px; }
+.reviews-section h2 { margin-bottom: 18px; font-size: 24px; }
+.review-empty { padding: 28px; border: 1px dashed #9bcfcd; border-radius: 12px; background: rgba(0, 206, 209, .06); color: var(--muted); }
+@media (max-width: 540px) {
+  .dealer-heading { align-items: stretch; padding: 22px; }
+  .dealer-review-link { align-self: flex-start; }
+}
+
 @media (max-width: 768px) {
-  .site-navbar { padding: 0 22px; }
+  .site-navbar { padding: 0 20px; }
   .site-navbar .navbar-collapse { padding: 10px 0 17px; }
   .site-navbar .navbar-nav { gap: 2px; }
   .account-area { margin: 10px 0 0; padding: 8px 12px; }
-  .site-page { min-height: calc(100vh - 72px); padding: 68px 22px; }
-  .home-hero { margin: 18px 0; padding: 60px 30px; }
+  .site-page { min-height: calc(100vh - 72px); padding: 35px 20px; }
+  .static-home-card { width: min(100%, 560px); min-width: 0; }
+  .home-dealers-panel { margin-top: 34px; padding: 18px 12px; }
+  .site-navbar .nav-link { margin: 2px 0; }
+  .account-area { margin: 8px 0 0; padding: 8px 0; }
+  .account-area .input_panel { padding: 0; }
+  .dealers-page { padding: 30px 12px; }
   .home-hero h1, .page-intro h1 { letter-spacing: -1.8px; }
   .about-grid { grid-template-columns: 1fr; }
   .contact-layout { grid-template-columns: 1fr; gap: 36px; }

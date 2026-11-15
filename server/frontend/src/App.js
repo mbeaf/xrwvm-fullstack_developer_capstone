@@ -3,6 +3,8 @@ import Header from "./components/Header/Header";
 import LoginPanel from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dealers from "./components/Dealers/Dealers";
+import Dealer from "./components/Dealers/Dealer";
+import PostReview from "./components/Dealers/PostReview";
 import "./components/assets/bootstrap.min.css";
 import "./components/assets/style.css";
 import "./App.css";
@@ -10,16 +12,18 @@ import "./App.css";
 function Home() {
   return (
     <main className="site-page">
-      <section className="home-hero">
-        <p className="eyebrow">Find your next drive</p>
-        <h1>Your journey starts here.</h1>
-        <p>Explore trusted dealerships and discover a car that feels right for you.</p>
-        <Link className="btn btn-primary" to="/about">Meet our team</Link>
+      <section className="static-home-card" aria-label="Welcome">
+        <img src="/static/car_dealership.jpg" alt="A welcoming car dealership" />
+        <div className="static-home-banner">
+          <h1>Welcome to our Dealerships!</h1>
+          <Link className="btn" to="/dealers">View Dealerships</Link>
+        </div>
       </section>
-      <section className="home-dealers site-page" aria-labelledby="home-dealers-title">
-        <p className="eyebrow">Our partners</p>
-        <h2 id="home-dealers-title">Dealerships near you</h2>
-        <p>Browse our dealership network. Sign in when you’re ready to leave a review.</p>
+      <section className="home-dealers-panel" aria-labelledby="home-dealers-title">
+        <header className="home-dealers-heading">
+          <div><p className="eyebrow">Explore our network</p><h2 id="home-dealers-title">Find a dealership</h2><p>Browse dealers and read reviews. Sign in to share your own experience.</p></div>
+          <Link className="home-all-dealers" to="/dealers">View all dealerships <span aria-hidden="true">→</span></Link>
+        </header>
         <Dealers />
       </section>
     </main>
@@ -105,6 +109,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/dealers" element={<main className="site-page dealers-page"><section className="static-dealers-card"><header className="static-dealers-banner"><h1>View Dealerships</h1><p>Browse our partner dealerships and select a name to read reviews.</p></header><Dealers /></section></main>} />
+        <Route path="/dealer/:id" element={<Dealer />} />
+        <Route path="/postreview/:id" element={<PostReview />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>
