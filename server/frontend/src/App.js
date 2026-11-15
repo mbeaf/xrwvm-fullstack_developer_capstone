@@ -1,6 +1,8 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import LoginPanel from "./components/Login/Login";
+import "./components/assets/bootstrap.min.css";
+import "./components/assets/style.css";
 import "./App.css";
 
 function Home() {
@@ -17,6 +19,33 @@ function Home() {
 }
 
 function About() {
+  const team = [
+    {
+      name: "Maya Chen",
+      role: "Customer Experience Lead",
+      detail: "Maya helps drivers compare their options and feel confident at every step of the search.",
+      email: "maya.chen@bestcardealership.com",
+      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=720&h=560&q=85",
+      alt: "Maya Chen meeting with a customer",
+    },
+    {
+      name: "Daniel Brooks",
+      role: "Dealer Partnerships Manager",
+      detail: "Daniel works with our dealership partners to keep local listings helpful and up to date.",
+      email: "daniel.brooks@bestcardealership.com",
+      image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=720&h=560&q=85",
+      alt: "Daniel Brooks collaborating with colleagues",
+    },
+    {
+      name: "Sofia Martinez",
+      role: "Sales Advisor",
+      detail: "Sofia brings hands-on automotive experience and a no-pressure approach to finding the right car.",
+      email: "sofia.martinez@bestcardealership.com",
+      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=720&h=560&q=85",
+      alt: "Sofia Martinez speaking with a customer",
+    },
+  ];
+
   return (
     <main className="site-page">
       <section className="page-intro">
@@ -24,10 +53,18 @@ function About() {
         <h1>Good drives begin with good people.</h1>
         <p>We bring drivers and trusted dealerships together to make finding your next car a more straightforward, confident experience.</p>
       </section>
-      <section className="about-grid" aria-label="Our values">
-        <article className="info-card"><span className="card-number">01</span><h2>People first</h2><p>We believe a great car buying experience starts with listening, clear information, and helpful service.</p></article>
-        <article className="info-card"><span className="card-number">02</span><h2>Trusted partners</h2><p>Our dealership directory helps you connect with local teams ready to help you find the right fit.</p></article>
-        <article className="info-card"><span className="card-number">03</span><h2>Here to help</h2><p>From your first search to your next question, we want every step to feel easy to navigate.</p></article>
+      <section className="about-grid team-grid" aria-label="Meet our team">
+        {team.map((member) => (
+          <article className="team-card" key={member.email}>
+            <img className="team-photo" src={member.image} alt={member.alt} loading="lazy" />
+            <div className="team-card-body">
+              <h2>{member.name}</h2>
+              <p className="team-role">{member.role}</p>
+              <p className="team-detail">{member.detail}</p>
+              <a className="team-email" href={`mailto:${member.email}`}>{member.email}</a>
+            </div>
+          </article>
+        ))}
       </section>
     </main>
   );
