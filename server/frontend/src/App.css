@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --ink: #142c2a;
+  --muted: #61716d;
+  --green: #167d69;
+  --green-dark: #116453;
+  --mint: #eaf5ef;
+  --paper: #f7f8f3;
+  --line: #e4e9e2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+h1, h2, p { margin-top: 0; }
+h1, h2 { font-family: 'Manrope', sans-serif; }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.site-navbar {
+  min-height: 82px;
+  background: rgba(255, 255, 255, .97);
+  border-bottom: 1px solid var(--line);
+  padding: 0 clamp(20px, 7vw, 104px);
 }
+.site-navbar .container-fluid { padding: 0; }
+.brand-link { display: inline-flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
+.brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px; background: var(--green); color: white; font-size: 18px; font-weight: 700; }
+.brand-name { font: 800 18px 'Manrope', sans-serif; letter-spacing: -.7px; }
+.site-navbar .navbar-nav { gap: 10px; }
+.site-navbar .nav-link { color: #576862; font-size: 14px; font-weight: 600; padding: 10px 13px !important; border-radius: 8px; }
+.site-navbar .nav-link:hover, .site-navbar .nav-link.active { color: var(--green-dark); background: var(--mint); }
+.site-navbar .navbar-toggler { border-color: var(--line); padding: 7px 9px; }
+.site-navbar .navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(22, 125, 105, .15); }
+.account-area { margin-left: 24px; }
+.account-area .username { color: var(--ink); font: 600 14px 'DM Sans', sans-serif; align-self: center; }
+.account-area .nav_item { color: var(--green-dark); font-size: 14px; font-weight: 600; text-decoration: none; align-self: center; }
+.account-area .input_panel { padding: 0; align-items: center; gap: 16px; }
 
-.App-link {
-  color: #61dafb;
-}
+.site-page { max-width: 1170px; min-height: calc(100vh - 82px); margin: auto; padding: 104px 32px; }
+.home-hero { max-width: 800px; margin: 54px auto; padding: 92px clamp(28px, 7vw, 82px); border: 1px solid #e2ebe1; border-radius: 28px; background: radial-gradient(ellipse at 92% 8%, #cdebd8 0, transparent 37%), linear-gradient(130deg, #eef7ee, #f9faf5 64%); }
+.eyebrow { margin-bottom: 18px; color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; }
+.home-hero h1, .page-intro h1 { max-width: 740px; margin-bottom: 20px; font-size: clamp(42px, 6vw, 68px); font-weight: 700; line-height: 1.08; letter-spacing: -3px; }
+.home-hero > p:not(.eyebrow), .page-intro > p:not(.eyebrow) { max-width: 600px; color: var(--muted); font-size: 17px; line-height: 1.8; }
+.home-hero .btn { margin-top: 14px; padding: 12px 20px; border: 0; border-radius: 9px; background: var(--green); font-weight: 600; }
+.home-hero .btn:hover { background: var(--green-dark); }
+.page-intro { max-width: 720px; margin-bottom: 58px; }
+.page-intro h1 { font-size: clamp(40px, 5vw, 58px); letter-spacing: -2.4px; }
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.info-card { padding: 29px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+.card-number { display: inline-flex; width: 36px; height: 36px; margin-bottom: 27px; align-items: center; justify-content: center; border-radius: 11px; background: var(--mint); color: var(--green-dark); font-size: 12px; font-weight: 700; }
+.info-card h2 { margin-bottom: 12px; font-size: 19px; font-weight: 700; }
+.info-card p, .contact-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.contact-layout { display: grid; grid-template-columns: 1.15fr .85fr; align-content: center; align-items: center; gap: 60px; }
+.contact-intro { margin: 0; }
+.contact-card { display: grid; gap: 25px; padding: 34px; border: 1px solid var(--line); border-radius: 17px; background: white; box-shadow: 0 14px 44px rgba(25, 50, 38, .045); }
+.contact-label { display: block; margin-bottom: 7px; color: #85928b; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+.contact-card a { color: var(--green-dark); font-size: 15px; font-weight: 600; text-decoration: none; }
+.contact-card a:hover { text-decoration: underline; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@media (max-width: 768px) {
+  .site-navbar { padding: 0 22px; }
+  .site-navbar .navbar-collapse { padding: 10px 0 17px; }
+  .site-navbar .navbar-nav { gap: 2px; }
+  .account-area { margin: 10px 0 0; padding: 8px 12px; }
+  .site-page { min-height: calc(100vh - 72px); padding: 68px 22px; }
+  .home-hero { margin: 18px 0; padding: 60px 30px; }
+  .home-hero h1, .page-intro h1 { letter-spacing: -1.8px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; gap: 36px; }
 }

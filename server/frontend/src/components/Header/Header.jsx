@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import "../assets/style.css";
 import "../assets/bootstrap.min.css";
 
@@ -37,34 +38,25 @@ if ( curr_user !== null &&  curr_user !== "") {
   </div>
 }
     return (
-        <div>
-          <nav class="navbar navbar-expand-lg navbar-light" style={{backgroundColor:"darkturquoise",height:"1in"}}>
-            <div class="container-fluid">
-              <h2 style={{paddingRight: "5%"}}>Dealerships</h2>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" style={{fontSize: "larger"}} aria-current="page" href="/">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" style={{fontSize: "larger"}} href="/about">About Us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" style={{fontSize: "larger"}} href="/contact">Contact Us</a>
-                  </li>
-                </ul>
-                <span class="navbar-text">
-                  <div class="loginlink" id="loginlogout">
-                  {home_page_items}
-                  </div>
-                  </span>
-              </div>
-            </div>
-          </nav>
+      <nav className="navbar navbar-expand-lg site-navbar">
+        <div className="container-fluid">
+          <NavLink className="brand-link navbar-brand" to="/" aria-label="Dealerships home">
+            <span className="brand-mark" aria-hidden="true">D</span>
+            <span className="brand-name">Dealerships</span>
+          </NavLink>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNavigation" aria-controls="siteNavigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="siteNavigation">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item"><NavLink end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/">Home</NavLink></li>
+              <li className="nav-item"><NavLink className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/about">About Us</NavLink></li>
+              <li className="nav-item"><NavLink className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} to="/contact">Contact Us</NavLink></li>
+            </ul>
+            <div className="account-area" id="loginlogout">{home_page_items}</div>
+          </div>
         </div>
+      </nav>
     )
 }
 
