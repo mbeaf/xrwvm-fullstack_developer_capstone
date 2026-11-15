@@ -1,73 +1,63 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import "./Login.css";
-import Header from '../Header/Header';
 
-const Login = ({ onClose }) => {
+const Login = () => {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [open,setOpen] = useState(true)
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
 
-  let login_url = window.location.origin+"/djangoapp/login";
-
-  const login = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch(login_url, {
+  const login = async (event) => {
+    event.preventDefault();
+    setError("");
+    setSubmitting(true);
+    try {
+      const response = await fetch(`${window.location.origin}/djangoapp/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            "userName": userName,
-            "password": password
+            userName: userName.trim(),
+            password,
         }),
-    });
-    
-    const json = await res.json();
-    if (json.status != null && json.status === "Authenticated") {
-        sessionStorage.setItem('username', json.userName);
-        setOpen(false);        
+      });
+      const result = await response.json();
+      if (!response.ok || result.status !== "Authenticated") {
+        setError(result.error || "The user could not be authenticated.");
+        return;
+      }
+      sessionStorage.setItem('username', result.userName);
+      navigate("/", { replace: true });
+      window.location.reload();
+    } catch (requestError) {
+      setError("Unable to reach the sign-in service. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
-    else {
-      alert("The user could not be authenticated.")
-    }
-};
-
-  if (!open) {
-    window.location.href = "/";
   };
-  
 
   return (
-    <div>
-      <Header/>
-    <div onClick={onClose}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className='modalContainer'
-      >
-          <form className="login_panel" style={{}} onSubmit={login}>
-              <div>
-              <span className="input_field">Username </span>
-              <input type="text"  name="username" placeholder="Username" className="input_field" onChange={(e) => setUserName(e.target.value)}/>
-              </div>
-              <div>
-              <span className="input_field">Password </span>
-              <input name="psw" type="password"  placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)}/>            
-              </div>
-              <div>
-              <input className="action_button" type="submit" value="Login"/>
-              <input className="action_button" type="button" value="Cancel" onClick={()=>setOpen(false)}/>
-              </div>
-              <a className="loginlink" href="/register">Register Now</a>
-          </form>
-      </div>
-    </div>
-    </div>
+    <main className="login-page">
+      <section className="login-card" aria-labelledby="login-title">
+        <p className="login-eyebrow">Welcome back</p>
+        <h1 id="login-title">Sign in</h1>
+        <p className="login-intro">Sign in to continue to your dealership account.</p>
+        <form className="login-form" onSubmit={login}>
+          <label htmlFor="login-username">Username</label>
+          <input id="login-username" name="username" type="text" autoComplete="username" value={userName} onChange={(event) => setUserName(event.target.value)} required />
+          <label htmlFor="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+          {error && <p className="login-error" role="alert">{error}</p>}
+          <button className="login-submit" type="submit" disabled={submitting}>{submitting ? "Signing in…" : "Login"}</button>
+        </form>
+        <p className="login-register">New here? <Link to="/register">Register now</Link></p>
+      </section>
+    </main>
   );
 };
 
