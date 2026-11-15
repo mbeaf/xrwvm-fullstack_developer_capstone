@@ -9,6 +9,7 @@
 # from datetime import datetime
 
 from django.http import JsonResponse
+from .models import CarMake
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 import logging
@@ -19,6 +20,34 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
+
+def get_car_makes(request):
+    """Return every car make with its models as JSON."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Use GET to retrieve car makes.'}, status=405)
+
+    makes = CarMake.objects.prefetch_related('car_models').all()
+    data = [
+        {
+            'id': make.id,
+            'name': make.name,
+            'description': make.description,
+            'models': [
+                {
+                    'id': car_model.id,
+                    'name': car_model.name,
+                    'dealer_id': car_model.dealer_id,
+                    'type': car_model.type,
+                    'year': car_model.year,
+                    'mileage': car_model.mileage,
+                }
+                for car_model in make.car_models.all()
+            ],
+        }
+        for make in makes
+    ]
+    return JsonResponse({'CarMakes': data})
 
 
 # Create your views here.
