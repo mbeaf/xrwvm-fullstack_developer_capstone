@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us | Dealerships</title>
+  <link rel="stylesheet" href="static/bootstrap.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <style>
+    :root { --contact-ink: #17332e; --contact-muted: #63736e; --contact-green: #167d69; --contact-pale: #eff7f0; }
+    body { margin: 0; min-height: 100vh; background: #f7f8f4; color: var(--contact-ink); font-family: Arial, sans-serif; }
+    .contact-nav { min-height: 78px; padding: 0 clamp(18px, 6vw, 90px); background: #fff; border-bottom: 1px solid #e3eae3; }
+    .contact-nav .container-fluid { padding: 0; }
+    .contact-brand { color: var(--contact-ink); font-size: 21px; font-weight: 700; text-decoration: none; }
+    .contact-brand:hover { color: var(--contact-green); }
+    .contact-nav .navbar-nav { gap: 8px; }
+    .contact-nav .nav-link { padding: 10px 14px; border-radius: 8px; color: #53645d; font-weight: 600; }
+    .contact-nav .nav-link:hover, .contact-nav .nav-link.active { color: #116453; background: #eaf5ef; }
+    .contact-shell { max-width: 1120px; margin: 0 auto; padding: 76px 24px; }
+    .contact-heading { max-width: 670px; margin-bottom: 36px; }
+    .contact-eyebrow { margin-bottom: 12px; color: var(--contact-green); font-size: 12px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
+    .contact-heading h1 { margin-bottom: 14px; font-size: clamp(38px, 5vw, 56px); font-weight: 700; letter-spacing: -1.8px; }
+    .contact-heading p { color: var(--contact-muted); font-size: 17px; line-height: 1.75; }
+    .contact-content { display: grid; grid-template-columns: 1.05fr .95fr; gap: 30px; align-items: stretch; }
+    .contact-details { display: grid; gap: 15px; }
+    .contact-item { padding: 20px 22px; border: 1px solid #e3eae3; border-radius: 13px; background: #fff; }
+    .contact-item h2 { margin: 0 0 7px; font-size: 15px; font-weight: 700; }
+    .contact-item p, .contact-item address { margin: 0; color: var(--contact-muted); font-size: 14px; font-style: normal; line-height: 1.7; }
+    .contact-item a { color: #116453; font-weight: 600; text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+    .contact-photo-wrap { overflow: hidden; min-height: 380px; border-radius: 16px; background: var(--contact-pale); }
+    .contact-photo { display: block; width: 100%; height: 100%; min-height: 380px; object-fit: cover; }
+    .contact-hours { margin-top: 15px; padding: 18px 22px; border-radius: 13px; background: var(--contact-pale); color: var(--contact-muted); font-size: 14px; line-height: 1.7; }
+    .contact-hours strong { color: var(--contact-ink); }
+    @media (max-width: 767px) {
+      .contact-nav { padding: 0 20px; }
+      .contact-nav .navbar-collapse { padding: 10px 0 16px; }
+      .contact-shell { padding: 52px 20px; }
+      .contact-content { grid-template-columns: 1fr; }
+      .contact-photo-wrap, .contact-photo { min-height: 260px; max-height: 340px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg contact-nav" aria-label="Main navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand contact-brand" href="/">Dealerships</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#contactNavigation" aria-controls="contactNavigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="contactNavigation">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/contact" aria-current="page">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contact-shell">
+    <header class="contact-heading">
+      <p class="contact-eyebrow">Get in touch</p>
+      <h1>Contact Us</h1>
+      <p>Questions about our dealerships or need help finding your next car? Our team is ready to point you in the right direction.</p>
+    </header>
+
+    <section class="contact-content" aria-label="Dealership contact information">
+      <div>
+        <div class="contact-details">
+          <article class="contact-item">
+            <h2>Call our team</h2>
+            <p><a href="tel:+18005550142">+1 (800) 555-0142</a></p>
+          </article>
+          <article class="contact-item">
+            <h2>Email us</h2>
+            <p><a href="mailto:hello@bestcardealership.com">hello@bestcardealership.com</a></p>
+          </article>
+          <article class="contact-item">
+            <h2>Visit our office</h2>
+            <address>1200 Market Street, Suite 200<br>San Francisco, CA 94103</address>
+          </article>
+        </div>
+        <p class="contact-hours"><strong>Office hours</strong><br>Monday–Friday: 9:00 AM–5:00 PM<br>Saturday–Sunday: Closed</p>
+      </div>
+      <div class="contact-photo-wrap">
+        <img class="contact-photo" src="static/contactus.png" alt="Contact our dealership team for help finding your next car">
+      </div>
+    </section>
+  </main>
+
+  <script src="static/bootstrap.bundle.min.js"></script>
+</body>
+</html>
