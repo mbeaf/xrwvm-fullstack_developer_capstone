@@ -29,8 +29,8 @@ const Register = () => {
         window.alert(result.error || "Registration could not be completed.");
         return;
       }
-      window.alert("Your registration was successful. You can now sign in.");
-      window.location.assign("/login");
+      if (result.userName) sessionStorage.setItem("username", result.userName);
+      window.location.assign("/");
     } catch (error) {
       window.alert("Unable to reach the registration service. Please try again later.");
     }
