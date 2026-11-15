@@ -6,21 +6,18 @@ import "../assets/bootstrap.min.css";
 const Header = () => {
     const logout = async (e) => {
     e.preventDefault();
-    let logout_url = window.location.origin+"/djangoapp/logout";
-    const res = await fetch(logout_url, {
-      method: "GET",
-    });
-  
-    const json = await res.json();
-    if (json) {
-      let username = sessionStorage.getItem('username');
+    try {
+      const response = await fetch(`${window.location.origin}/djangoapp/logout`, {
+        method: "POST",
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Logout failed.");
+      const username = sessionStorage.getItem('username') || result.userName;
       sessionStorage.removeItem('username');
-      window.location.href = window.location.origin;
+      window.location.assign("/");
       window.location.reload();
-      alert("Logging out "+username+"...")
-    }
-    else {
-      alert("The user could not be logged out.")
+    } catch (error) {
+      window.alert(error.message || "Unable to sign out. Please try again.");
     }
   };
     
@@ -37,7 +34,7 @@ let curr_user = sessionStorage.getItem('username')
 if ( curr_user !== null &&  curr_user !== "") {
     home_page_items = <div className="input_panel">
       <text className='username'>{sessionStorage.getItem("username")}</text>
-    <a className="nav_item" href="/djangoapp/logout" onClick={logout}>Logout</a>
+    <a className="nav_item" href="/" onClick={logout}>Logout</a>
   </div>
 }
     return (
